@@ -1,0 +1,12 @@
+<project name="pstros">
+  <echo message="building pstros"/>
+  <mkdir dir="build/classes"/>
+  <javac srcdir="." destdir="build/classes" includeantruntime="false" debug="true" debuglevel="lines,vars,source">
+  </javac>
+  <jar basedir="build/classes" destfile="build/pstros.jar">
+    <metainf dir="META-INF"/>
+    <manifest>
+        <attribute name="Main-Class" value="ole.pstros.MainApp"/>
+    </manifest>
+  </jar>
+</project>
