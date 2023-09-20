@@ -286,7 +286,7 @@ public class Image implements ObjectProvider
             if (MainApp.verbose) {
                 System.out.println("resource not found");
             }
-            //throw new IOException("resource not found");
+            throw new IOException("resource not found");
         }
         final ImageCreator ie = new ImageCreator();
         final Image result = new Image(ie.createImage(data));
