@@ -6,6 +6,7 @@ package javax.microedition.lcdui;
 
 import java.awt.Insets;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.WindowListener;
 import java.util.TimerTask;
 import java.util.Timer;
@@ -19,6 +20,7 @@ import java.awt.event.WindowEvent;
 import ole.pstros.EmuCanvas;
 import java.awt.Frame;
 import java.util.HashMap;
+import javax.swing.JFrame;
 
 public class Display
 {
@@ -347,7 +349,8 @@ public class Display
             Display.emuFrame.setVisible(false);
             Display.emuFrame.dispose();
         }
-        Display.emuFrame = new Frame();
+        Display.emuFrame=new JFrame();
+        //Display.emuFrame = new Frame();
         int w = Display.WIDTH * ConfigData.scale;
         int h = Display.HEIGHT * ConfigData.scale;
         if (ConfigData.skinWidth > 0 && ConfigData.skinHeight > 0) {
@@ -358,7 +361,22 @@ public class Display
             ConfigData.skinScreenX = 0;
             ConfigData.skinScreenY = 0;
         }
-        Display.emuFrame.setSize(10, 10);
+
+        Display.emuFrame.setPreferredSize(new Dimension(10,10));
+        Display.emuFrame.setResizable(false);
+        Display.emuFrame.setLocation(ConfigData.windowPositionX,ConfigData.windowPositionY);
+        Display.emuFrame.addWindowListener(Display.emuCanvas);
+        Display.emuFrame.add(Display.emuCanvas);
+        emuSetTitle(0,0,ConfigData.videoMemoryLimit>>10,0);
+        Display.emuFrame.setVisible(true);
+        final Insets insets=Display.emuFrame.getInsets();
+        w+=insets.right+insets.left;
+        h+=insets.bottom+insets.top;
+        Display.emuFrame.setPreferredSize(new Dimension(w,h));
+        Display.emuFrame.pack();
+        Display.emuFrame.doLayout();
+
+        /*Display.emuFrame.setSize(10, 10);
         Display.emuFrame.setResizable(false);
         Display.emuFrame.setLocation(ConfigData.windowPositionX, ConfigData.windowPositionY);
         Display.emuFrame.addWindowListener(Display.emuCanvas);
@@ -369,7 +387,7 @@ public class Display
         w += insets.right + insets.left;
         h += insets.bottom + insets.top;
         Display.emuFrame.setSize(w, h);
-        Display.emuFrame.doLayout();
+        Display.emuFrame.doLayout();*/
     }
     
     public static void emuRunEmulation() {
