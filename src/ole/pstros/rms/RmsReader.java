@@ -12,7 +12,7 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import ole.pstros.ConfigData;
 import org.xml.sax.helpers.DefaultHandler;
-import ole.pstros.DataHandler;
+//import ole.pstros.DataHandler; <-- this import is not been used anywhere
 
 import javax.microedition.rms.*;
 
