@@ -35,6 +35,8 @@ import java.awt.font.FontRenderContext;
 import java.awt.Font;
 import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.awt.Image;
 import javax.microedition.lcdui.Displayable;
@@ -183,6 +185,10 @@ public class EmuCanvas extends Canvas implements KeyListener, WindowListener, Mo
         (this.deviceGraph = new javax.microedition.lcdui.Graphics()).emuSetGraphics(this.emuGraph);
         this.deviceGraph.emuSetGraphicsImage((BufferedImage)this.emuImage);
         this.deviceGraph.setClip(0, 0, Display.WIDTH, Display.HEIGHT);
+        if(!System.getProperty("os.name").equals("Linux")) {
+          Graphics2D g2=(Graphics2D)this.emuGraph;
+          g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+        }
         if (ConfigData.bottomConsoleHeight > 0) {
             this.consoleFont = new Font(null, 0, ConfigData.bottomConsoleHeight - 4);
         }
